@@ -3,24 +3,70 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
   body {
-    @apply bg-[#0a0d14] text-slate-100 antialiased font-sans selection:bg-cyan-500 selection:text-black;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-feature-settings: "cv02","cv03","cv04","cv11";
+  }
+  * {
+    box-sizing: border-box;
   }
 }
 
-/* Custom scrollbar for modern dashboard feel */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: #f1f5f9; border-radius: 9999px; }
+::-webkit-scrollbar-thumb  { background: #cbd5e1; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Sidebar-internal scrollbar stays dark */
+.sidebar-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+
+/* ── Hero gradient text ────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 45%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-::-webkit-scrollbar-track {
-  background: #0d111c;
+
+/* ── Sidebar nav active glow ───────────────────────────── */
+.nav-active {
+  background: linear-gradient(135deg, rgba(139,92,246,0.35) 0%, rgba(99,102,241,0.25) 100%);
+  box-shadow: 0 0 0 1px rgba(139,92,246,0.4), 0 4px 12px rgba(139,92,246,0.2);
 }
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 9999px;
+
+/* ── Card hover lift ───────────────────────────────────── */
+.card-lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+}
+
+/* ── Router concentric rings ───────────────────────────── */
+@keyframes ring-pulse {
+  0%   { opacity: 0.55; transform: scale(1);    }
+  100% { opacity: 0;    transform: scale(1.45); }
+}
+.ring { animation: ring-pulse 2.4s ease-out infinite; }
+.ring-2 { animation-delay: 0.8s; }
+.ring-3 { animation-delay: 1.6s; }
+
+/* ── Scan banner pulse ─────────────────────────────────── */
+@keyframes scan-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+.scan-pulse { animation: scan-pulse 1.4s ease-in-out infinite; }
+
+/* ── Print styles ──────────────────────────────────────── */
+@media print {
+  body { background: white !important; }
+  .no-print { display: none !important; }
+  .print-full { max-height: none !important; overflow: visible !important; }
 }
