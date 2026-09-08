@@ -5,12 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "node server/index.js",
+    "dev:all": "concurrently \"node server/index.js\" \"vite\" --names \"API,UI\" --prefix-colors \"cyan,blue\"",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
     "autoprefixer": "^10.5.5",
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "lucide-react": "^1.43.0",
     "postcss": "^8.5.28",
     "react": "^19.2.8",
