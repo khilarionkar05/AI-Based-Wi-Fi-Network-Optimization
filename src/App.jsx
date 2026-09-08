@@ -90,11 +90,11 @@ function DeviceIcon({ type, size = 'md' }) {
 // ─── Router SVG — clean 3D-style illustration ────────────────────────────
 function RouterVisual() {
   return (
-    <div className="relative flex items-center justify-center w-full h-full select-none">
-      {/* Ambient glow rings */}
-      <div className="absolute w-56 h-56 rounded-full bg-violet-200/40 ring ring-1 animate-ping [animation-duration:3s]" style={{ animationDelay: '0s' }} />
-      <div className="absolute w-72 h-72 rounded-full bg-violet-100/30 ring ring-1 animate-ping [animation-duration:3s]" style={{ animationDelay: '1s' }} />
-      <div className="absolute w-40 h-40 rounded-full bg-violet-300/20 blur-2xl" />
+    <div className="relative flex items-center justify-center w-full h-full select-none overflow-hidden">
+      {/* Ambient glow rings — use % sizes so they never exceed the container */}
+      <div className="absolute w-3/4 pb-[75%] rounded-full bg-violet-200/40 animate-ping [animation-duration:3s]" style={{ animationDelay: '0s' }} />
+      <div className="absolute w-full pb-[100%] rounded-full bg-violet-100/20 animate-ping [animation-duration:3s]" style={{ animationDelay: '1s' }} />
+      <div className="absolute w-1/2 pb-[50%] rounded-full bg-violet-300/20 blur-2xl" />
 
       {/* Router body */}
       <svg viewBox="0 0 200 160" className="relative z-10 w-48 h-auto drop-shadow-xl" fill="none">
@@ -320,9 +320,9 @@ function Sidebar({ activeNav, setActiveNav, sidebarOpen, setSidebarOpen }) {
 
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-full w-60 flex flex-col
+          fixed top-0 left-0 z-30 h-screen w-60 flex flex-col shrink-0
           transition-transform duration-300 ease-in-out
-          lg:static lg:translate-x-0 lg:z-auto
+          lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:z-auto
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
         style={{
@@ -552,7 +552,7 @@ export default function App() {
   // RENDER
   // ─────────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-slate-100 font-sans flex">
+    <div className="min-h-screen w-full overflow-x-hidden bg-slate-100 font-sans flex">
 
       {showReport && <ReportModal data={d} onClose={() => setShowReport(false)} />}
 
@@ -565,7 +565,7 @@ export default function App() {
       />
 
       {/* ══ Main area ════════════════════════════════════════════════ */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
 
         {/* ── Top Header ─────────────────────────────────────────── */}
         <header className="sticky top-0 z-10 bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
@@ -679,7 +679,7 @@ export default function App() {
         )}
 
         {/* ── Dashboard scroll area ───────────────────────────────── */}
-        <main className="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-5">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 py-5 space-y-5 min-w-0">
 
           {/* ════════════════════════════════════════════════════════
               HERO SECTION
@@ -778,7 +778,7 @@ export default function App() {
                   <FloatBadge icon="✨" label="AI Optimized" />
                 </div>
 
-                <div className="w-full max-w-xs mx-auto h-52 relative z-10">
+                <div className="w-full max-w-[260px] mx-auto h-52 relative z-10">
                   <RouterVisual />
                 </div>
               </div>
@@ -788,7 +788,7 @@ export default function App() {
           {/* ════════════════════════════════════════════════════════
               FOUR METRIC CARDS
           ═══════════════════════════════════════════════════════════ */}
-          <section className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+          <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
             {/* Signal Strength */}
             <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-card card-lift">
@@ -912,7 +912,7 @@ export default function App() {
           {/* ════════════════════════════════════════════════════════
               ANALYTICS ROW: Chart + AI Recommendation
           ═══════════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
 
             {/* Network Performance Chart — spans 3 */}
             <div className="xl:col-span-3 bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-card">
@@ -1113,7 +1113,7 @@ export default function App() {
           {/* ════════════════════════════════════════════════════════
               BOTTOM ROW: Channel Analysis + Connected Devices
           ═══════════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
             {/* Channel Analysis */}
             <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-card">
