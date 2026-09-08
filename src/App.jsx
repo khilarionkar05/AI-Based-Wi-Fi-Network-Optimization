@@ -322,8 +322,7 @@ function Sidebar({ activeNav, setActiveNav, sidebarOpen, setSidebarOpen }) {
         className={`
           fixed top-0 left-0 z-30 h-screen w-60 flex flex-col shrink-0
           transition-transform duration-300 ease-in-out
-          lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:z-auto
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
         style={{
           background: 'linear-gradient(160deg, #130d35 0%, #1a1144 40%, #221558 100%)',
@@ -552,7 +551,7 @@ export default function App() {
   // RENDER
   // ─────────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-slate-100 font-sans flex">
+    <div className="h-screen w-full overflow-hidden bg-slate-100 font-sans flex">
 
       {showReport && <ReportModal data={d} onClose={() => setShowReport(false)} />}
 
@@ -565,7 +564,7 @@ export default function App() {
       />
 
       {/* ══ Main area ════════════════════════════════════════════════ */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden h-screen lg:ml-60">
 
         {/* ── Top Header ─────────────────────────────────────────── */}
         <header className="sticky top-0 z-10 bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
