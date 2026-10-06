@@ -2,7 +2,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/AI-Based-WiFi-Network-Optimization/',
+  base: '/AI-Based-Wi-Fi-Network-Optimization/',
   plugins: [react()],
   server: {
     proxy: {
