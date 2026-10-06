@@ -1,10 +1,11 @@
 /**
  * networkApi.js — Frontend API service layer
- * All requests go to /api (proxied to localhost:3001 in dev, or same-origin in prod).
+ * Requests use VITE_API_URL when configured, or the Vite /api proxy in development.
  * Every function handles errors gracefully and marks fallback data clearly.
  */
 
-const BASE = '/api/network';
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const BASE = `${API_URL}/api/network`;
 
 /**
  * Generic fetch helper — returns { ok, data, error, isFallback }

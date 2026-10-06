@@ -174,9 +174,11 @@ The recommendation is calculated automatically as part of the metrics response. 
 
 - **Technology:** Node.js with Express 4 and CORS middleware.
 - **Default base URL:** `http://localhost:3001`.
+- **Frontend API URL:** Set `VITE_API_URL` to the deployed backend origin for a production build. Leave it empty locally to use Vite's `/api` proxy.
 - **Operating system:** Windows is required for the implemented `netsh` and `arp` collection commands.
 - **Server command:** `npm run dev:server`.
-- **Frontend proxy:** Vite forwards `/api` requests to `http://localhost:3001` during development.
+- **Frontend proxy:** Vite forwards `/api` requests to `http://localhost:3001` during development when `VITE_API_URL` is not set.
+- **CORS:** Set `CORS_ORIGINS` on the backend to a comma-separated list of allowed frontend origins.
 - **Authentication:** none.
 - **Persistence:** none; data is collected per request and is not stored in a database.
 
@@ -251,7 +253,7 @@ The values in this example describe the response shape only and are not claimed 
 - Windows for the live collection backend.
 - A Wi-Fi adapter and network connection if live interface and scan data are desired.
 
-No environment file or environment variables are required by the current implementation.
+Copy `.env.example` to `.env` for local configuration. Do not commit `.env`; use the hosting provider's environment-variable settings for production.
 
 ### Install dependencies
 
@@ -282,6 +284,14 @@ npm run dev:server
 ```
 
 The API listens on `http://localhost:3001`.
+
+For a production frontend build, set the backend origin before building:
+
+```bash
+VITE_API_URL=https://your-deployed-backend.example.com npm run build
+```
+
+Do not use that placeholder as an actual URL; replace it with the URL assigned by your backend host.
 
 ### Verify the project
 

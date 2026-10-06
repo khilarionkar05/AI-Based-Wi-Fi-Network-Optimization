@@ -13,9 +13,13 @@ import https from 'https';
 
 const execAsync = promisify(exec);
 const app = express();
-const PORT = 3001;
+const PORT = Number(process.env.PORT || 3001);
+const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173,http://localhost:4173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -564,7 +568,7 @@ app.get('/api/network/metrics', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`\n  AI Wi-Fi Optimizer API`);
   console.log(`  ─────────────────────────────────────────`);
-  console.log(`  Listening on http://localhost:${PORT}`);
+  console.log(`  Listening on port ${PORT}`);
   console.log(`  Endpoints:`);
   console.log(`    GET /api/network/status`);
   console.log(`    GET /api/network/interfaces`);
