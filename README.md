@@ -173,14 +173,16 @@ The recommendation is calculated automatically as part of the metrics response. 
 ### Backend details
 
 - **Technology:** Node.js with Express 4 and CORS middleware.
-- **Default base URL:** `http://localhost:3001`.
-- **Frontend API URL:** Set `VITE_API_URL` to the deployed backend origin for a production build. Leave it empty locally to use Vite's `/api` proxy.
+- **Default base URL:** `http://localhost:5000`.
+- **Frontend API URL:** Set `VITE_API_URL` to the deployed backend origin for a production build. It defaults to `http://localhost:5000` locally.
 - **Operating system:** Windows is required for the implemented `netsh` and `arp` collection commands.
 - **Server command:** `npm run dev:server`.
-- **Frontend proxy:** Vite forwards `/api` requests to `http://localhost:3001` during development when `VITE_API_URL` is not set.
-- **CORS:** Set `CORS_ORIGINS` on the backend to a comma-separated list of allowed frontend origins.
+- **Frontend proxy:** Vite forwards `/api` requests to `http://localhost:5000` during development.
+- **CORS:** Set `CORS_ORIGINS` on the backend to a comma-separated list of allowed frontend origins, including `https://khilarionkar05.github.io` in production.
 - **Authentication:** none.
 - **Persistence:** none; data is collected per request and is not stored in a database.
+
+The included `render.yaml` uses the root `npm run dev:server` command. The server can start on Render, but Render's standard Node runtime is Linux while the network collection commands in this project require Windows (`netsh` and `arp -a`). For real local Wi-Fi monitoring, run the backend on the Windows machine being monitored and expose it through a secure HTTPS tunnel or Windows-compatible host instead.
 
 ### Endpoints
 
@@ -283,7 +285,7 @@ Backend only:
 npm run dev:server
 ```
 
-The API listens on `http://localhost:3001`.
+The API listens on `http://localhost:5000` locally. Render supplies its public port through `PORT`.
 
 For a production frontend build, set the backend origin before building:
 
